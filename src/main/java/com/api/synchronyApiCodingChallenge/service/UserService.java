@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -32,6 +34,21 @@ public class UserService {
 
         return userRepository.save(user);
     }
+    public void addImageToUser(String username, String imageUrl) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found: " + username));
+
+        List<String> images = user.getImageUrls();
+        images.add(imageUrl);
+        user.setImageUrls(images);
+
+        userRepository.save(user);
+    }
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found: " + username));
+    }
+
 }
 //@RequiredArgsConstructor
 //public class UserService {

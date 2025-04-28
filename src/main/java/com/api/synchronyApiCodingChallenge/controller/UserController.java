@@ -24,5 +24,10 @@ public class UserController {
         User savedUser = userService.registerUser(request);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
+    @GetMapping("/{username}")
+    public ResponseEntity<User> getUserProfile(@PathVariable String username) {
+        User user = userService.getUserByUsername(username);
+        return ResponseEntity.ok(user);
+    }
 
 }

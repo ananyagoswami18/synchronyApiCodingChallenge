@@ -47,7 +47,9 @@ public class ImgurService {
 
     public void deleteImage(String deleteHash) {
         HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         headers.set("Authorization", "Client-ID " + clientId);
+        System.out.println("Authorization: Client-ID " + clientId);
 
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
